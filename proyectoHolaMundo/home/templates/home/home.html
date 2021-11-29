@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISI pagina principal</title>
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'home'%}">home</a></li>
+        <li><a href="{% url 'sintactico:patrones'%}">sintactico</a></li>
+        <li><a href="{% url 'about:about'%}">about</a></li>
+        <li><a href="{% url 'sintactico:grafos'%}">grafos</a></li>
+
+    </ul>
+
+   
+
+    {% block contenido %}
+      <img src="https://picsum.photos/id/237/200/300" alt="">
+    {% endblock contenido %}
+
+    <form action="{% url 'proc'%}" method="GET">
+        {% csrf_token %}
+
+        <label for="umbral">Umbral</label>
+        <input type="text" name="umbral" id="umbral">
+
+        <button type="submit" name="miboton"> iniciar procesamiento  </button>
+    </form>
+
+   {% for l in mislistas %}
+    <!--TABLA GENERAL-->
+   <ul>
+
+      {{otra}}
+
+      <table style="border: 5px">
+        
+        <thead>
+            <tr>
+              <td style="border: 2px solid black;">No</td>
+              <td style="border: 2px solid black;">Temperatura</td>
+              <td style="border: 2px solid black;">Color</td>
+              <td style="border: 2px solid black;">Inflamacion</td>
+            </tr>
+        </thead>
+        <body>
+
+             {% for elemento in l %}
+              <tr> 
+                <td style="border: 2px solid rgb(0, 0, 0);"><a href="">
+                {{elemento.pk}}
+                </a></td>
+                
+
+                
+                {% if elemento.temperature > 50 %}
+                <td style="border: 2px solid rgb(196, 21, 21);">{{elemento.temperature}}</td>
+                {% else %}
+                <td style="border: 2px solid rgb(0, 0, 0);">{{elemento.temperature}}</td>
+                {% endif %}
+                  
+                <td style="border: 2px solid rgba(21, 24, 196, 0.336);">{{elemento.color}}</td>
+                <td style="border: 2px solid rgba(21, 24, 196, 0.336);">{{elemento.inflammation}}</td>
+                
+              </tr>
+              {% endfor %}
+
+              
+        </body>
+
+
+      </table>
+
+   </ul>
+   
+   {% endfor %}
+
+    <ul>
+
+
+       {% for elemento in lista %}
+          <li>
+            {{elemento}}
+          </li>
+       {% endfor %}
+
+    </ul>
+    
+    <!--FILTRO L2-->
+    <!--FILTRO L1-->
+    
+    <hr>{% block footer %}
+      <p>inicio</p>
+    {% endblock footer %}
+
+    {% comment "Optional note" %}
+    <p>este comentario se puede ve{{create_date|date:"c" }}</p>
+    {% endcomment %}
+    
+</body>
+
+</html>
